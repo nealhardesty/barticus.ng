@@ -23,12 +23,10 @@
     <div class="container">
         <div data-ng-controller="indexController">
 
-            {{coords.lat}} {{coords.long}}
-            {{statusText}}
-            {{stationName}}
+            {{lat}} {{long}}
             <ul>
-                <div ng-repeat="station in stationnames">
-                    <li>station: {{station}}</li>
+                <div ng-repeat="station in stations">
+                    <li>station: {{station.name}} {{station.latitude}} {{station.longitude}}</li>
                 </div>
             </ul>
         </div>
