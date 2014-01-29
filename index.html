@@ -24,6 +24,13 @@
         <div data-ng-controller="indexController">
 
             {{coords.lat}} {{coords.long}}
+            {{statusText}}
+            {{stationName}}
+            <ul>
+                <div ng-repeat="station in stationnames">
+                    <li>station: {{station}}</li>
+                </div>
+            </ul>
         </div>
     </div>
 </div>
