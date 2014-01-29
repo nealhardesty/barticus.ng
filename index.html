@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html data-ng-app="barticusApp">
 <head>
     <title>BARTicus</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap-cosmo.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/sticky-footer.css">
+
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/indexController.js"></script>
 </head>
 <body>
 <div id="wrap">
@@ -14,10 +20,10 @@
             </div>
         </div>
     </div>
-
     <div class="container">
-        <div class="col-lg-2">
-            <div class="btn-danger">Danger!</div>
+        <div data-ng-controller="indexController">
+
+            {{coords.lat}} {{coords.long}}
         </div>
     </div>
 </div>
@@ -26,10 +32,6 @@
     <div class="container"><h4>Last Updated Goes Here</h4></div>
 </div>
 
-
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/angular.js"></script>
 
 </body>
 </html>
