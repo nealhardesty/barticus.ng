@@ -23,11 +23,12 @@
     <div class="container">
         <ul>
             <div ng-repeat="etd in etds">
-                <li>departure: {{etd.name}}
-                <span ng-repeat="departure in etd.departures">
-                    {{departure}}
-                </span>
-
+                <li>{{etd.name}}
+                    <div>
+                        <span ng-repeat="departure in etd.departures">
+                            {{departure}}
+                        </span>
+                    </div>
                 </li>
             </div>
         </ul>
@@ -36,7 +37,7 @@
 </div>
 
 <div id="footer">
-    <div class="container"><h4>Last Updated {{lastupdated}}</h4></div>
+    <div class="container"><h4>Updated {{lastupdated}}</h4></div>
 </div>
 
 
