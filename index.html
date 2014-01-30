@@ -5,36 +5,38 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/sticky-footer.css">
-
+    <link rel="stylesheet" href="css/barticus.css">
 
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/angular.js"></script>
     <script src="js/indexController.js"></script>
 </head>
-<body>
+<body data-ng-controller="indexController">
 <div id="wrap">
     <div class="navbar navbar-fixed-top" role="navigation">
         <div class="container">
-            <div class="navbar-header"><h4>Header Goes Here</h4>
+            <div class="navbar-header"><h4>{{closeststation.name}}</h4>
             </div>
         </div>
     </div>
     <div class="container">
-        <div data-ng-controller="indexController">
+        <ul>
+            <div ng-repeat="etd in etds">
+                <li>departure: {{etd.name}}
+                <span ng-repeat="departure in etd.departures">
+                    {{departure}}
+                </span>
 
-            {{lat}} {{long}}
-            <ul>
-                <div ng-repeat="station in stations">
-                    <li>station: {{station.name}} {{station.latitude}} {{station.longitude}}</li>
-                </div>
-            </ul>
-        </div>
+                </li>
+            </div>
+        </ul>
+
     </div>
 </div>
 
 <div id="footer">
-    <div class="container"><h4>Last Updated Goes Here</h4></div>
+    <div class="container"><h4>Last Updated {{lastupdated}}</h4></div>
 </div>
 
 
