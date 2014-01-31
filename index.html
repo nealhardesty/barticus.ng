@@ -14,30 +14,41 @@
 </head>
 <body data-ng-controller="indexController">
 <div id="wrap">
-    <div class="navbar navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
-            <div class="navbar-header"><h4>{{closeststation.name}}</h4>
+            <div class="navbar-header">
+                <a class="navbar-brand station" href="#" ng-click="doRefresh()">
+                    {{closeststation.name}}
+                </a>
             </div>
         </div>
     </div>
-    <div class="container">
-        <ul>
+    <div class="container centered" ng-show="!etds">
+        Loading...
+    </div>
+    <div class="container" ng-show="etds">
+        <ul class="trains">
             <div ng-repeat="etd in etds">
-                <li>{{etd.name}}
-                    <div>
+                <li class="departure">
+                    <div class="line-name">
+                        {{etd.name}}
+                    </div>
+                    <div class="container departures row">
                         <span ng-repeat="departure in etd.departures">
-                            {{departure}}
+                            <span class="extrapadding" ng-switch="departure">
+                                <span ng-switch-when="0"><em class="atstation">At station</em></span>
+                                <span ng-switch-default>{{departure}}</span>
+                            </span>
                         </span>
                     </div>
                 </li>
             </div>
         </ul>
-
     </div>
 </div>
 
 <div id="footer">
-    <div class="container"><h4>Updated {{lastupdated}}</h4></div>
+    <div class="container"><h4 ng-show="lastupdated">Updated {{lastupdated}}</h4></div>
 </div>
 
 

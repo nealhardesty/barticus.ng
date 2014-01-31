@@ -12,7 +12,6 @@ barticusApp.service('bartapi', ['$http', function ($http) {
     var cachedstations = null;
     this.getStations = function (callback) {
         if (cachedstations) {
-            debugger;
             callback(cachedstations);
             return;
         }
@@ -53,39 +52,39 @@ barticusApp.service('bartapi', ['$http', function ($http) {
                 var lastupdated = xml.getElementsByTagName("time")[0].childNodes[0].nodeValue;
                 var etds = {};
                 var etdElements = xml.getElementsByTagName("etd");
-                for(var i=0;i<etdElements.length;i++) {
-                    var etdElement=etdElements[i];
+                for (var i = 0; i < etdElements.length; i++) {
+                    var etdElement = etdElements[i];
                     var destination = etdElement.getElementsByTagName("destination")[0].childNodes[0].nodeValue;
-                    if(! etds[destination]) {
+                    if (!etds[destination]) {
                         etds[destination] = {};
                         etds[destination].name = destination;
                         etds[destination].departures = [];
                     }
                     var estimates = etdElement.getElementsByTagName("estimate");
-                    for(var j=0;j<estimates.length;j++) {
+                    for (var j = 0; j < estimates.length; j++) {
                         var estimate = estimates[j];
                         var minutes = estimate.getElementsByTagName("minutes")[0].childNodes[0].nodeValue;
-                        if(minutes == "Leaving") {
+                        if (minutes == "Leaving") {
                             minutes = 0;
                         }
                         etds[destination].departures.push(minutes);
                     }
                 }
                 var sortedEtds = [];
-                for(var key in etds) {
+                for (var key in etds) {
                     sortedEtds.push(etds[key]);
                 }
-                sortedEtds.sort(function(a,b) {
-                    if(a.departures.length < 1) {
+                sortedEtds.sort(function (a, b) {
+                    if (a.departures.length < 1) {
                         return -1;
                     }
-                    if(b.departures.length < 1) {
+                    if (b.departures.length < 1) {
                         return 1;
                     }
-                    if(a.departures[0] < b.departures[0]) {
+                    if (parseInt(a.departures[0]) < parseInt(b.departures[0])) {
                         return -1;
                     }
-                    if(a.departures[0] > b.departures[0]) {
+                    if (parseInt(a.departures[0]) > parseInt(b.departures[0])) {
                         return 1;
                     }
                     return 0;
@@ -105,35 +104,38 @@ barticusApp.service('bartapi', ['$http', function ($http) {
 
         return Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1)) * MEAN_EARTH_RADIUS;
     }
-}])
-;
+}]);
 
 var indexController = function ($scope, $http, bartapi) {
-
-    bartapi.getLatLong(function (lat, long) {
-        $scope.lat = lat;
-        $scope.long = long;
-        bartapi.getStations(function (stations) {
-            $scope.stations = stations;
-            //$scope.$apply();
-            var min = Number.MAX_VALUE;
-            var closestStation = null;
-            for (var i in $scope.stations) {
-                var station = $scope.stations[i];
-                station.distance = bartapi.calcDistance(lat, long, station.latitude, station.longitude);
-                if (!closestStation || station.distance < closestStation.distance) {
-                    min = station.distance;
-                    closestStation = station;
+    $scope.doRefresh = function () {
+        $scope.etds=null;
+        bartapi.getLatLong(function (lat, long) {
+            $scope.lat = lat;
+            $scope.long = long;
+            bartapi.getStations(function (stations) {
+                $scope.stations = stations;
+                //$scope.$apply();
+                var min = Number.MAX_VALUE;
+                var closestStation = null;
+                for (var i in $scope.stations) {
+                    var station = $scope.stations[i];
+                    station.distance = bartapi.calcDistance(lat, long, station.latitude, station.longitude);
+                    if (!closestStation || station.distance < closestStation.distance) {
+                        min = station.distance;
+                        closestStation = station;
+                    }
                 }
-            }
-            $scope.closeststation = closestStation;
-            bartapi.getSchedule(closestStation, function(etds, lastupdated) {
-                $scope.etds = etds;
-                $scope.lastupdated = lastupdated;
-            })
-        });
+                $scope.closeststation = closestStation;
+                bartapi.getSchedule(closestStation, function (etds, lastupdated) {
+                    $scope.etds = etds;
+                    $scope.lastupdated = lastupdated;
+                })
+            });
 
-    });
+        });
+    };
+
+    $scope.doRefresh();
 
 
 };

@@ -1,0 +1,42 @@
+body {
+    padding-top: 50px;
+}
+
+.station {
+    font-weight: bolder;
+    color: white !important;
+    font-size: xx-large;
+}
+
+.trains {
+    list-style-type: none;
+}
+
+.atstation {
+    font-weight: bold;
+    color: #3c763d;
+}
+
+.departure {
+    border:#040404 solid thin;
+    border-top-color: lightgrey;
+    border-bottom-color: lightgrey;
+    border-left-style: none;
+    border-right-style: none;
+}
+
+.line-name {
+    font-weight: bolder;
+    font-size: x-large;
+}
+
+.departures {
+    font-size: large;
+    margin-left:40px;
+    font-size: x-large;
+}
+
+.extrapadding {
+    padding-left: 10px;
+}
+
