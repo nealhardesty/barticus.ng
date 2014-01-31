@@ -5,7 +5,7 @@ body {
 .station {
     font-weight: bolder;
     color: white !important;
-    font-size: xx-large;
+    font-size: large;
 }
 
 .trains {
@@ -27,16 +27,15 @@ body {
 
 .line-name {
     font-weight: bolder;
-    font-size: x-large;
+    font-size: large;
 }
 
 .departures {
+    margin-left:25px;
     font-size: large;
-    margin-left:40px;
-    font-size: x-large;
 }
 
 .extrapadding {
-    padding-left: 10px;
+    padding-left: 7px;
 }
 
