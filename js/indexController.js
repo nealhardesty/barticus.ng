@@ -67,6 +67,8 @@ barticusApp.service('bartapi', ['$http', function ($http) {
                         if (minutes == "Leaving") {
                             minutes = 0;
                         }
+												etds[destination].departures.push(minutes);
+
                         var length = estimate.getElementsByTagName("length")[0].childNodes[0].nodeValue;
                         etds[destination].length = length;
                     }
