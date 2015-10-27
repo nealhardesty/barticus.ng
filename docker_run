@@ -1,4 +1,6 @@
 #!/bin/bash
 
-docker build -t barticus $(dirname $0)
+if [ -z "$(docker images |grep barticus)" ]; then
+	docker build -t barticus $(dirname $0)
+fi
 docker run -p 80:80 -d --name barticus barticus
